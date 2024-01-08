@@ -1,0 +1,87 @@
+// src/App.tsx
+import "./App.css";
+import React, { useState } from "react";
+import { WordDetailsType, Meaning, Definition } from "./interfaces/interfaces";
+
+export default function App() {
+  const [word, setWord] = useState<string>("");
+  const [wordDetails, setWordDetails] = useState<WordDetailsType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleEnterPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (word.trim().length > 0) {
+        await fetchWordDetails();
+      } else {
+        alert("You entered an empty word!!!");
+      }
+    }
+  };
+
+  const fetchWordDetails = async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Word API fetch data failed !!!");
+      }
+
+      const wordApiData: WordDetailsType[] = await response.json();
+      console.log("wordApiData", wordApiData);
+
+      setWordDetails(wordApiData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value.trim());
+  };
+
+  return (
+    <div className="App">
+      <h1>Details for a given word</h1>
+      <input
+        type="text"
+        placeholder="Enter a word here..."
+        onChange={handleChange}
+        onKeyDown={handleEnterPress}
+      />
+      {isLoading
+        ? "Loading..."
+        : wordDetails.map((wordDetail, index) => (
+            <div key={index}>
+              <h2>Word: {wordDetail.word}</h2>
+              <h3>Phonetic: {wordDetail.phonetic}</h3>
+              <h3>Meanings:</h3>
+              {wordDetail.meanings.map(
+                (meaning: Meaning, meaningIndex: number) => (
+                  <div key={meaningIndex}>
+                    {(meaning.partOfSpeech === "noun" ||
+                      meaning.partOfSpeech === "verb") && (
+                      <div>
+                        <h4>Part of Speech: {meaning.partOfSpeech}</h4>
+                        <ul>
+                          {meaning.definitions.map(
+                            (definition: Definition, defIndex: number) => (
+                              <li key={defIndex}>{definition.definition}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
+            </div>
+          ))}
+    </div>
+  );
+}
