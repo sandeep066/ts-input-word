@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ts-input-word/static/css/main.f855e6bc.css",
+    "main.js": "/ts-input-word/static/js/main.46c0f51f.js",
+    "index.html": "/ts-input-word/index.html",
+    "main.f855e6bc.css.map": "/ts-input-word/static/css/main.f855e6bc.css.map",
+    "main.46c0f51f.js.map": "/ts-input-word/static/js/main.46c0f51f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f855e6bc.css",
+    "static/js/main.46c0f51f.js"
+  ]
+}
