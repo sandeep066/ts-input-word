@@ -1,9 +1,12 @@
-  import "./Word.css";
+ import "./Word.css";
   import React, { useState } from "react";
   import { WordDetailsType } from "../interfaces/wordInterfaces";
   import WordDetailsComponent from "../components/word/WordDetails";
   import SearchForm from "../components/word/SearchForm";
   import useWordDetails from "../hooks/useWordDetails";
+  import LoadingComponent from '../components/common/loading/LoadingComponent';
+  import ErrorComponent from '../components/common/error/ErrorComponent';
+ 
 
   const Word: React.FC = () => {
     const [searchWord, setSearchWord] = useState<string>("");
@@ -14,11 +17,11 @@
     };
 
     if (isLoading) {
-      return <p>Loading...</p>;
+      return <LoadingComponent/>;
     }
 
     if (error) {
-      return <p>Error: {error}</p>;
+      return <ErrorComponent message={error} />;
     }
     
     return (

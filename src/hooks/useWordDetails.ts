@@ -1,14 +1,8 @@
 import { useState, useEffect } from "react";
-import { WordDetailsType } from "../interfaces/wordInterfaces";
+import { WordDetailsType, UseWordDetailsResult } from "../interfaces/wordInterfaces";
 import { fetchData } from "../utils/api";
 import { API_BASE_URL,ERROR_MESSAGE,WORDAPIDATA } from '../utils/constants'
 
-
-interface UseWordDetailsResult {
-  wordDetails: WordDetailsType[];
-  isLoading: boolean;
-  error: string | null;
-}
 
 const useWordDetails = (word: string): UseWordDetailsResult => {
   const [wordDetails, setWordDetails] = useState<WordDetailsType[]>([]);

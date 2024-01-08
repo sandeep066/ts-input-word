@@ -26,3 +26,10 @@ export interface Phonetic {
     meanings: Meaning[];
   }
   
+ export interface UseWordDetailsResult {
+  wordDetails: WordDetailsType[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+  
