@@ -11,6 +11,7 @@ const WordDetailsComponent: React.FC<WordDetailsProps> = ({ wordDetail }) => (
     <h2>Word: {wordDetail.word}</h2>
     <h3>Phonetic: {wordDetail.phonetic}</h3>
     <h3>Meanings:</h3>
+
     {wordDetail.meanings.map((meaning:Meaning, meaningIndex:number) => (
       <div key={meaningIndex}>
         {(meaning.partOfSpeech === `${NOUN}` || meaning.partOfSpeech === `${VERB}`) && (
